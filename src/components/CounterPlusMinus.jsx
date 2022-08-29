@@ -12,13 +12,13 @@ const CounterPlusMinus = () => {
             className="common_btn py-2 px-4"
             onClick={() => setCount(count + 1)}
           >
-            Click me
+            Add
           </button>
           <button
             className="common_btn py-2 px-4 ms-3"
             onClick={() => setCount(count - 1)}
           >
-            Click me
+            Minus
           </button>
         </div>
       </div>
