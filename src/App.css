@@ -3,4 +3,19 @@
   font-size: 20px;
   border: none;
   border-radius: 8px;
+  background-color: pink;
+  color: red;
+  font-weight: bold;
+}
+
+/*RANGE DATE PICKER*/
+.daterangepicker {
+  background-color: pink !important;
+}
+
+.daterangepicker:before {
+  top: -7px;
+  border-right: 7px solid transparent;
+  border-left: 7px solid transparent;
+  border-bottom: 7px solid #ccc;
 }
