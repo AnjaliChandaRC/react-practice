@@ -14,13 +14,7 @@ const FormInput = () => {
   // const [showData, setShowData] = useState([]);
 
   const Submitbtn = () => {
-    console.log(
-      initialvalue.name,
-      initialvalue.lastname,
-      initialvalue.email,
-      initialvalue.password,
-      initialvalue.confirmpassword
-    );
+    console.log(initialvalue);
   };
   return (
     <>
