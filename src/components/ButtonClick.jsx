@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const BtnAndInput = () => {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(true);
   return (
     <>
       <section className="py-5">
