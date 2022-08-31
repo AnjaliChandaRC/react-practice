@@ -1,16 +1,26 @@
 import React, { useState } from "react";
 
 const FormInput = () => {
-  const [name, setName] = useState();
-  const [lastname, setLastName] = useState();
-  const [password, setPassword] = useState();
-  const [confirmpassword, setConfiempassword] = useState();
-  const [showData, setShowData] = useState([]);
+  const [initialvalue, setInitialvalue] = useState({
+    name: "",
+    lastname: "",
+    email: "",
+    password: "",
+    confirmpassword: "",
+  });
+  // const [lastname, setLastName] = useState();
+  // const [password, setPassword] = useState();
+  // const [confirmpassword, setConfiempassword] = useState();
+  // const [showData, setShowData] = useState([]);
 
   const Submitbtn = () => {
-    let Data = [];
-    Data = showData.push(name, lastname, password, confirmpassword);
-    console.log("showData", showData);
+    console.log(
+      initialvalue.name,
+      initialvalue.lastname,
+      initialvalue.email,
+      initialvalue.password,
+      initialvalue.confirmpassword
+    );
   };
   return (
     <>
@@ -22,33 +32,68 @@ const FormInput = () => {
               <div className="input_parent_bg mt-4">
                 <div>
                   <input
-                    onChange={(e) => setName(e.target.value)}
-                    className="w-100 input_bg"
+                    onChange={(e) =>
+                      setInitialvalue({ ...initialvalue, name: e.target.value })
+                    }
+                    className="w-100 input_bg color_pink"
                     type="text"
+                    value={initialvalue.name}
                     placeholder="Name"
                   />
                 </div>
                 <div className="mt-3">
                   <input
-                    onChange={(e) => setLastName(e.target.value)}
-                    className="w-100 input_bg"
+                    onChange={(e) =>
+                      setInitialvalue({
+                        ...initialvalue,
+                        lastname: e.target.value,
+                      })
+                    }
+                    className="w-100 input_bg color_pink"
                     type="text"
+                    value={initialvalue.lastname}
                     placeholder="Last Name"
                   />
                 </div>
                 <div className="mt-3">
                   <input
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-100 input_bg"
+                    onChange={(e) =>
+                      setInitialvalue({
+                        ...initialvalue,
+                        email: e.target.value,
+                      })
+                    }
+                    className="w-100 input_bg color_pink"
                     type="text"
-                    placeholder="Password"
+                    value={initialvalue.email}
+                    placeholder="Email"
                   />
                 </div>
                 <div className="mt-3">
                   <input
-                    onChange={(e) => setConfiempassword(e.target.value)}
-                    className="w-100 input_bg"
-                    type="text"
+                    onChange={(e) =>
+                      setInitialvalue({
+                        ...initialvalue,
+                        password: e.target.value,
+                      })
+                    }
+                    className="w-100 input_bg color_pink"
+                    type="password"
+                    placeholder="Password"
+                    value={initialvalue.password}
+                  />
+                </div>
+                <div className="mt-3">
+                  <input
+                    onChange={(e) =>
+                      setInitialvalue({
+                        ...initialvalue,
+                        confirmpassword: e.target.value,
+                      })
+                    }
+                    className="w-100 input_bg color_pink"
+                    type="password"
+                    value={initialvalue.confirmpassword}
                     placeholder="Confirm Password"
                   />
                 </div>
