@@ -1,14 +1,17 @@
+import { Button } from "bootstrap";
 import React from "react";
-import BtnAndInput from "../components/BtnAndInput";
 import CounterPlusMinus from "../components/CounterPlusMinus";
+import ButtonClick from "../components/ButtonClick";
 import DatePicker from "../components/DatePicker";
+import FormInput from "../components/FormInput";
 
 const Main = () => {
   return (
     <>
       <CounterPlusMinus />
       <DatePicker />
-      <BtnAndInput />
+      <ButtonClick />
+      <FormInput />
     </>
   );
 };
