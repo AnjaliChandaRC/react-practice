@@ -8,13 +8,32 @@ const FormInput = () => {
     password: "",
     confirmpassword: "",
   });
+  const [formerror, setFormerror] = useState(false);
   // const [lastname, setLastName] = useState();
   // const [password, setPassword] = useState();
   // const [confirmpassword, setConfiempassword] = useState();
   // const [showData, setShowData] = useState([]);
 
-  const Submitbtn = () => {
-    console.log(initialvalue);
+  const Submitbtn = (e) => {
+    setFormerror(true);
+    // e.preventDefault();
+    if (
+      initialvalue.name !== "" &&
+      initialvalue.lastname !== "" &&
+      initialvalue.email !== "" &&
+      initialvalue.password !== "" &&
+      initialvalue.confirmpassword !== ""
+    ) {
+      setFormerror(false);
+      console.log(initialvalue, "initialvalue");
+      setInitialvalue({
+        name: "",
+        lastname: "",
+        email: "",
+        password: "",
+        confirmpassword: "",
+      });
+    }
   };
   return (
     <>
@@ -34,6 +53,11 @@ const FormInput = () => {
                     value={initialvalue.name}
                     placeholder="Name"
                   />
+                  {formerror && initialvalue.name === "" ? (
+                    <p className="text-danger fw-bold">Name is required</p>
+                  ) : (
+                    initialvalue !== ""
+                  )}
                 </div>
                 <div className="mt-3">
                   <input
@@ -48,6 +72,11 @@ const FormInput = () => {
                     value={initialvalue.lastname}
                     placeholder="Last Name"
                   />
+                  {formerror && initialvalue.lastname === "" ? (
+                    <p className="text-danger fw-bold">Last Name is required</p>
+                  ) : (
+                    initialvalue !== ""
+                  )}
                 </div>
                 <div className="mt-3">
                   <input
@@ -58,10 +87,15 @@ const FormInput = () => {
                       })
                     }
                     className="w-100 input_bg color_pink"
-                    type="text"
+                    type="email"
                     value={initialvalue.email}
                     placeholder="Email"
                   />
+                  {formerror && initialvalue.email === "" ? (
+                    <p className="text-danger fw-bold">Email is required</p>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className="mt-3">
                   <input
@@ -76,6 +110,11 @@ const FormInput = () => {
                     placeholder="Password"
                     value={initialvalue.password}
                   />
+                  {formerror && initialvalue.password === "" ? (
+                    <p className="text-danger fw-bold">Password is required</p>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className="mt-3">
                   <input
@@ -90,6 +129,13 @@ const FormInput = () => {
                     value={initialvalue.confirmpassword}
                     placeholder="Confirm Password"
                   />
+                  {formerror && initialvalue.confirmpassword === "" ? (
+                    <p className="text-danger fw-bold">
+                      Confirm Password is required
+                    </p>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className="text-center mt-4">
                   <button onClick={() => Submitbtn()} className="common_btn">
