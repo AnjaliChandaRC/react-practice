@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { EyeClose, EyeIcon } from "../common/Icons";
 
 const FormTwo = () => {
   const [formvalue, setFormvalue] = useState({
@@ -10,6 +11,8 @@ const FormTwo = () => {
   });
 
   const [error, setError] = useState(false);
+  const [showHidePassword, setShowHidePassword] = useState(false);
+  const [showConfirmHidePassword, setShowConfirmHidePassword] = useState(false);
 
   const regex =
     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -25,14 +28,13 @@ const FormTwo = () => {
       formvalue.confirmpassword !== "" &&
       regex.test(formvalue.email)
     ) {
-      const data = {
+      setFormvalue({
         name: "",
         lastname: "",
         email: "",
         password: "",
         confirmpassword: "",
-      };
-      setFormvalue(data);
+      });
       setError(false);
       console.log("formvalue", formvalue);
     }
@@ -90,53 +92,78 @@ const FormTwo = () => {
                     }
                   />
                   {error && formvalue.email === "" ? (
-                    <p className="text-danger">Email is required</p>
+                    <p className="text-danger fw-bold">Email is required</p>
                   ) : error && regex.test(formvalue.email) === false ? (
-                    <p className="text-danger">Invalid email</p>
+                    <p className="text-danger fw-bold">Invalid email</p>
                   ) : (
                     ""
                   )}
                 </div>
                 <div className="mt-3">
-                  <input
-                    className="w-100 input_bg color_pink"
-                    type="password"
-                    placeholder="Password"
-                    value={formvalue.password}
-                    onChange={(e) =>
-                      setFormvalue({ ...formvalue, password: e.target.value })
-                    }
-                  />
-                  <p className="text-danger mb-0 fw-bold">
-                    {error && formvalue.password === ""
-                      ? "Password is Required"
-                      : formvalue !== ""}
-                  </p>
+                  <div className="mb-3 position-relative">
+                    <div className="d-flex">
+                      <input
+                        className="w-100 input_bg color_pink"
+                        type={showHidePassword ? "text" : "password"}
+                        placeholder="Password"
+                        value={formvalue.password}
+                        onChange={(e) =>
+                          setFormvalue({
+                            ...formvalue,
+                            password: e.target.value,
+                          })
+                        }
+                      />
+                      <div
+                        className="position-absolute eye_position cursor"
+                        onClick={() => setShowHidePassword(!showHidePassword)}
+                      >
+                        {showHidePassword ? <EyeIcon /> : <EyeClose />}
+                      </div>
+                    </div>
+                    <p className="text-danger mb-0 fw-bold">
+                      {error && formvalue.password === ""
+                        ? "Password is Required"
+                        : formvalue !== ""}
+                    </p>
+                  </div>
                 </div>
                 <div className="mt-3">
-                  <input
-                    className="w-100 input_bg color_pink"
-                    type="password"
-                    placeholder="Confirm Password"
-                    value={formvalue.confirmpassword}
-                    onChange={(e) =>
-                      setFormvalue({
-                        ...formvalue,
-                        confirmpassword: e.target.value,
-                      })
-                    }
-                  />
-                  <p className="text-danger mb-0 fw-bold">
-                    {error && formvalue.confirmpassword === ""
-                      ? "Confirm Password is Required"
-                      : formvalue.confirmpassword === "" &&
-                        formvalue.password === ""
-                      ? ""
-                      : formvalue.confirmpassword !== "" &&
-                        formvalue.confirmpassword !== formvalue.password
-                      ? "Password Does not match"
-                      : ""}
-                  </p>
+                  <div className="mb-3 position-relative">
+                    <div className="d-flex">
+                      <input
+                        className="w-100 input_bg color_pink"
+                        type={showConfirmHidePassword ? "text" : "password"}
+                        placeholder="Confirm Password"
+                        value={formvalue.confirmpassword}
+                        onChange={(e) =>
+                          setFormvalue({
+                            ...formvalue,
+                            confirmpassword: e.target.value,
+                          })
+                        }
+                      />
+                      <div
+                        className="position-absolute eye_position cursor"
+                        onClick={() =>
+                          setShowConfirmHidePassword(!showConfirmHidePassword)
+                        }
+                      >
+                        {showConfirmHidePassword ? <EyeIcon /> : <EyeClose />}
+                      </div>
+                    </div>
+                    <p className="text-danger mb-0 fw-bold">
+                      {error && formvalue.confirmpassword === ""
+                        ? "Confirm Password is Required"
+                        : formvalue.confirmpassword === "" &&
+                          formvalue.password === ""
+                        ? ""
+                        : formvalue.confirmpassword !== "" &&
+                          formvalue.confirmpassword !== formvalue.password
+                        ? "Password Does not match"
+                        : ""}
+                    </p>
+                  </div>
                 </div>
                 <div className="text-center mt-4">
                   <button className="common_btn" onClick={(e) => SubmitData(e)}>

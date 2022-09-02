@@ -9,23 +9,21 @@ const FormInput = () => {
     confirmpassword: "",
   });
   const [formerror, setFormerror] = useState(false);
-  // const [lastname, setLastName] = useState();
-  // const [password, setPassword] = useState();
-  // const [confirmpassword, setConfiempassword] = useState();
-  // const [showData, setShowData] = useState([]);
+  const regex =
+    /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
   const Submitbtn = (e) => {
     setFormerror(true);
-    // e.preventDefault();
+    e.preventDefault();
     if (
       initialvalue.name !== "" &&
       initialvalue.lastname !== "" &&
       initialvalue.email !== "" &&
       initialvalue.password !== "" &&
-      initialvalue.confirmpassword !== ""
+      initialvalue.confirmpassword !== "" &&
+      regex.test(initialvalue.email)
     ) {
       setFormerror(false);
-      console.log(initialvalue, "initialvalue");
       setInitialvalue({
         name: "",
         lastname: "",
@@ -33,6 +31,7 @@ const FormInput = () => {
         password: "",
         confirmpassword: "",
       });
+      console.log(initialvalue, "initialvalue");
     }
   };
   return (
@@ -93,6 +92,8 @@ const FormInput = () => {
                   />
                   {formerror && initialvalue.email === "" ? (
                     <p className="text-danger fw-bold">Email is required</p>
+                  ) : formerror && regex.test(initialvalue.email) === false ? (
+                    <p className="text-danger">Email Not Valid</p>
                   ) : (
                     ""
                   )}
@@ -138,7 +139,7 @@ const FormInput = () => {
                   )}
                 </div>
                 <div className="text-center mt-4">
-                  <button onClick={() => Submitbtn()} className="common_btn">
+                  <button onClick={(e) => Submitbtn(e)} className="common_btn">
                     Submit
                   </button>
                 </div>
