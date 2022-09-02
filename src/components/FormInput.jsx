@@ -93,7 +93,7 @@ const FormInput = () => {
                   {formerror && initialvalue.email === "" ? (
                     <p className="text-danger fw-bold">Email is required</p>
                   ) : formerror && regex.test(initialvalue.email) === false ? (
-                    <p className="text-danger">Email Not Valid</p>
+                    <p className="text-danger fw-bold">Email Not Valid</p>
                   ) : (
                     ""
                   )}

@@ -31,14 +31,14 @@ const CounterPlusMinus = () => {
                     onClick={() => setCount(count * 2)}
                     disable
                   >
-                    Multiply
+                    Multiply*2
                   </button>
                   <button
                     className="common_btn mt-3 ms-3"
                     onClick={() => setCount(count / 2)}
                     disable
                   >
-                    Divide
+                    Divide*2
                   </button>
                 </div>
               </div>
