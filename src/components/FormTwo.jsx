@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { EyeClose, EyeIcon } from "../common/Icons";
+import Table from "react-bootstrap/Table";
 
 const FormTwo = () => {
   const [formvalue, setFormvalue] = useState({
     name: "",
-    lastname: "",
+    username: "",
     email: "",
     password: "",
     confirmpassword: "",
@@ -13,24 +14,36 @@ const FormTwo = () => {
   const [error, setError] = useState(false);
   const [showHidePassword, setShowHidePassword] = useState(false);
   const [showConfirmHidePassword, setShowConfirmHidePassword] = useState(false);
-
-  const regex =
+  const [tableValue, setTableValue] = useState([]);
+  const emailregex =
     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-
+  const usernameregex = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/;
+  // const strongRegex =
+  // /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$/;
+  const deleteHandler = (index) => {
+    const tableValueNew = [...tableValue];
+    const result = tableValueNew.filter((word, i) => i !== index);
+    setTableValue(result);
+  };
   const SubmitData = (e) => {
     setError(true);
     e.preventDefault();
     if (
       formvalue.name !== "" &&
-      formvalue.lastname !== "" &&
+      formvalue.username !== "" &&
       formvalue.email !== "" &&
       formvalue.password !== "" &&
       formvalue.confirmpassword !== "" &&
-      regex.test(formvalue.email)
+      // strongRegex.test(formvalue.password) &&
+      usernameregex.test(formvalue.username) &&
+      emailregex.test(formvalue.email) &&
+      formvalue.password === formvalue.confirmpassword
     ) {
+      tableValue.push(formvalue);
+      setTableValue(tableValue);
       setFormvalue({
         name: "",
-        lastname: "",
+        username: "",
         email: "",
         password: "",
         confirmpassword: "",
@@ -53,7 +66,7 @@ const FormTwo = () => {
                   <input
                     className="w-100 input_bg color_pink"
                     type="text"
-                    placeholder="Name"
+                    placeholder="Fisrt Name"
                     value={formvalue.name}
                     onChange={(e) =>
                       setFormvalue({ ...formvalue, name: e.target.value })
@@ -69,16 +82,24 @@ const FormTwo = () => {
                   <input
                     className="w-100 input_bg color_pink"
                     type="text"
-                    placeholder="Last Name"
-                    value={formvalue.lastname}
+                    placeholder="User Name"
+                    value={formvalue.username}
                     onChange={(e) =>
-                      setFormvalue({ ...formvalue, lastname: e.target.value })
+                      setFormvalue({ ...formvalue, username: e.target.value })
                     }
                   />
                   <p className="text-danger mb-0 fw-bold">
-                    {error && formvalue.lastname === ""
-                      ? "Last Name is Required"
-                      : formvalue !== ""}
+                    {error && formvalue.username === "" ? (
+                      "Last Name is Required"
+                    ) : error &&
+                      usernameregex.test(formvalue.username) === false ? (
+                      <p className="text-danger fw-bold">Invalid username</p>
+                    ) : (
+                      formvalue.username !== "" && (
+                        <p className="text-success fw-bold">Valid</p>
+                      )
+                    )}
+                    {console.log("sdfgh", usernameregex.test)}{" "}
                   </p>
                 </div>
                 <div className="mt-3">
@@ -93,7 +114,7 @@ const FormTwo = () => {
                   />
                   {error && formvalue.email === "" ? (
                     <p className="text-danger fw-bold">Email is required</p>
-                  ) : error && regex.test(formvalue.email) === false ? (
+                  ) : error && emailregex.test(formvalue.email) === false ? (
                     <p className="text-danger fw-bold">Invalid email</p>
                   ) : (
                     ""
@@ -126,6 +147,12 @@ const FormTwo = () => {
                         ? "Password is Required"
                         : formvalue !== ""}
                     </p>
+                    {/* // ) : error && // strongRegex.test(formvalue.password) ===
+                    false ? ( //{" "}
+                    <p className="text-danger fw-bold">Invalid Password</p>
+                    // ) : error && formvalue.password !== "" ? ( //{" "}
+                    <p>valid</p>
+                    // ) : ( // "" */}
                   </div>
                 </div>
                 <div className="mt-3">
@@ -173,6 +200,44 @@ const FormTwo = () => {
               </div>
             </div>
           </div>
+
+          {tableValue.length > 0 ? (
+            <Table className="mt-5" striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>UserName</th>
+                  <th>Email</th>
+                  <th>Password</th>
+                  <th>ConfirmPassword</th>
+                </tr>
+              </thead>
+              {tableValue && tableValue.length > 0
+                ? tableValue.map((val, index) => {
+                    return (
+                      <tbody key={index}>
+                        <tr>
+                          <td>{val.name}</td>
+                          <td>{val.username}</td>
+                          <td>{val.email}</td>
+                          <td>{val.password}</td>
+                          <td>{val.confirmpassword}</td>
+                        </tr>
+                        <button
+                          className="common_btn mt-3"
+                          type="button"
+                          onClick={() => deleteHandler(index)}
+                        >
+                          Delete
+                        </button>
+                      </tbody>
+                    );
+                  })
+                : ""}
+            </Table>
+          ) : (
+            ""
+          )}
         </div>
       </section>
     </>

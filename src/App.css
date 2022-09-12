@@ -63,3 +63,20 @@
 .cursor {
   cursor: pointer;
 }
+
+.border_clr {
+  border: 4px solid red !important;
+}
+
+/*--------------------------CHANGE COLOR BOX--------------------*/
+.chng_clr_box {
+  width: 70%;
+  height: 200px;
+  margin: auto;
+}
+
+.box_bg {
+  border-radius: 5%;
+  border: 4px solid red;
+  padding: 20px 30px;
+}

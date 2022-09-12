@@ -5,6 +5,7 @@ import ButtonClick from "../components/ButtonClick";
 import DatePicker from "../components/DatePicker";
 import FormInput from "../components/FormInput";
 import FormTwo from "../components/FormTwo";
+import ColorInputBox from "../components/ColorInputBox";
 
 const Main = () => {
   return (
@@ -14,6 +15,7 @@ const Main = () => {
       <ButtonClick />
       <FormInput />
       <FormTwo />
+      <ColorInputBox />
     </>
   );
 };
