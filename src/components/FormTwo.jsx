@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { EyeClose, EyeIcon } from "../common/Icons";
 import Table from "react-bootstrap/Table";
+import { useEffect } from "react";
 
 const FormTwo = () => {
   const [formvalue, setFormvalue] = useState({
@@ -20,11 +21,17 @@ const FormTwo = () => {
   const usernameregex = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/;
   // const strongRegex =
   // /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$/;
+  const [changeState, setChangeState] = useState(false);
   const deleteHandler = (index) => {
-    const tableValueNew = [...tableValue];
-    const result = tableValueNew.filter((word, i) => i !== index);
-    setTableValue(result);
+    // const tableValueNew = [...tableValue];
+    // const result = tableValueNew.filter((word, i) => i !== index);
+    // setTableValue(result);
+    tableValue.splice(index, 1);
+    setChangeState(!changeState);
   };
+  useEffect(() => {
+    setTableValue(tableValue);
+  }, [changeState]);
   const SubmitData = (e) => {
     setError(true);
     e.preventDefault();
@@ -61,143 +68,148 @@ const FormTwo = () => {
               <h3 className="fs-1 fw-bold text-success text-center">
                 Practice Form
               </h3>
-              <div className="input_parent_bg mt-4">
-                <div>
-                  <input
-                    className="w-100 input_bg color_pink"
-                    type="text"
-                    placeholder="Fisrt Name"
-                    value={formvalue.name}
-                    onChange={(e) =>
-                      setFormvalue({ ...formvalue, name: e.target.value })
-                    }
-                  />
-                  <p className="text-danger mb-0 fw-bold">
-                    {error && formvalue.name === ""
-                      ? "Name is Required"
-                      : formvalue !== ""}
-                  </p>
-                </div>
-                <div className="mt-3">
-                  <input
-                    className="w-100 input_bg color_pink"
-                    type="text"
-                    placeholder="User Name"
-                    value={formvalue.username}
-                    onChange={(e) =>
-                      setFormvalue({ ...formvalue, username: e.target.value })
-                    }
-                  />
-                  <p className="text-danger mb-0 fw-bold">
-                    {error && formvalue.username === "" ? (
-                      "Last Name is Required"
-                    ) : error &&
-                      usernameregex.test(formvalue.username) === false ? (
-                      <p className="text-danger fw-bold">Invalid username</p>
-                    ) : (
-                      formvalue.username !== "" && (
-                        <p className="text-success fw-bold">Valid</p>
-                      )
-                    )}
-                    {console.log("sdfgh", usernameregex.test)}{" "}
-                  </p>
-                </div>
-                <div className="mt-3">
-                  <input
-                    className="w-100 input_bg color_pink"
-                    type="email"
-                    placeholder="Email"
-                    value={formvalue.email}
-                    onChange={(e) =>
-                      setFormvalue({ ...formvalue, email: e.target.value })
-                    }
-                  />
-                  {error && formvalue.email === "" ? (
-                    <p className="text-danger fw-bold">Email is required</p>
-                  ) : error && emailregex.test(formvalue.email) === false ? (
-                    <p className="text-danger fw-bold">Invalid email</p>
-                  ) : (
-                    ""
-                  )}
-                </div>
-                <div className="mt-3">
-                  <div className="mb-3 position-relative">
-                    <div className="d-flex">
-                      <input
-                        className="w-100 input_bg color_pink"
-                        type={showHidePassword ? "text" : "password"}
-                        placeholder="Password"
-                        value={formvalue.password}
-                        onChange={(e) =>
-                          setFormvalue({
-                            ...formvalue,
-                            password: e.target.value,
-                          })
-                        }
-                      />
-                      <div
-                        className="position-absolute eye_position cursor"
-                        onClick={() => setShowHidePassword(!showHidePassword)}
-                      >
-                        {showHidePassword ? <EyeIcon /> : <EyeClose />}
-                      </div>
-                    </div>
+              <form action="">
+                <div className="input_parent_bg mt-4">
+                  <div>
+                    <input
+                      className="w-100 input_bg color_pink"
+                      type="text"
+                      placeholder="Fisrt Name"
+                      value={formvalue.name}
+                      onChange={(e) =>
+                        setFormvalue({ ...formvalue, name: e.target.value })
+                      }
+                    />
                     <p className="text-danger mb-0 fw-bold">
-                      {error && formvalue.password === ""
-                        ? "Password is Required"
+                      {error && formvalue.name === ""
+                        ? "Name is Required"
                         : formvalue !== ""}
                     </p>
-                    {/* // ) : error && // strongRegex.test(formvalue.password) ===
+                  </div>
+                  <div className="mt-3">
+                    <input
+                      className="w-100 input_bg color_pink"
+                      type="text"
+                      placeholder="User Name"
+                      value={formvalue.username}
+                      onChange={(e) =>
+                        setFormvalue({ ...formvalue, username: e.target.value })
+                      }
+                    />
+                    <p className="text-danger mb-0 fw-bold">
+                      {error && formvalue.username === "" ? (
+                        "Last Name is Required"
+                      ) : error &&
+                        usernameregex.test(formvalue.username) === false ? (
+                        <p className="text-danger fw-bold">Invalid username</p>
+                      ) : (
+                        formvalue.username !== "" && (
+                          <p className="text-success fw-bold">Valid</p>
+                        )
+                      )}
+                      {console.log("sdfgh", usernameregex.test)}{" "}
+                    </p>
+                  </div>
+                  <div className="mt-3">
+                    <input
+                      className="w-100 input_bg color_pink"
+                      type="email"
+                      placeholder="Email"
+                      value={formvalue.email}
+                      onChange={(e) =>
+                        setFormvalue({ ...formvalue, email: e.target.value })
+                      }
+                    />
+                    {error && formvalue.email === "" ? (
+                      <p className="text-danger fw-bold">Email is required</p>
+                    ) : error && emailregex.test(formvalue.email) === false ? (
+                      <p className="text-danger fw-bold">Invalid email</p>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className="mt-3">
+                    <div className="mb-3 position-relative">
+                      <div className="d-flex">
+                        <input
+                          className="w-100 input_bg color_pink"
+                          type={showHidePassword ? "text" : "password"}
+                          placeholder="Password"
+                          value={formvalue.password}
+                          onChange={(e) =>
+                            setFormvalue({
+                              ...formvalue,
+                              password: e.target.value,
+                            })
+                          }
+                        />
+                        <div
+                          className="position-absolute eye_position cursor"
+                          onClick={() => setShowHidePassword(!showHidePassword)}
+                        >
+                          {showHidePassword ? <EyeIcon /> : <EyeClose />}
+                        </div>
+                      </div>
+                      <p className="text-danger mb-0 fw-bold">
+                        {error && formvalue.password === ""
+                          ? "Password is Required"
+                          : formvalue !== ""}
+                      </p>
+                      {/* // ) : error && // strongRegex.test(formvalue.password) ===
                     false ? ( //{" "}
                     <p className="text-danger fw-bold">Invalid Password</p>
                     // ) : error && formvalue.password !== "" ? ( //{" "}
                     <p>valid</p>
                     // ) : ( // "" */}
-                  </div>
-                </div>
-                <div className="mt-3">
-                  <div className="mb-3 position-relative">
-                    <div className="d-flex">
-                      <input
-                        className="w-100 input_bg color_pink"
-                        type={showConfirmHidePassword ? "text" : "password"}
-                        placeholder="Confirm Password"
-                        value={formvalue.confirmpassword}
-                        onChange={(e) =>
-                          setFormvalue({
-                            ...formvalue,
-                            confirmpassword: e.target.value,
-                          })
-                        }
-                      />
-                      <div
-                        className="position-absolute eye_position cursor"
-                        onClick={() =>
-                          setShowConfirmHidePassword(!showConfirmHidePassword)
-                        }
-                      >
-                        {showConfirmHidePassword ? <EyeIcon /> : <EyeClose />}
-                      </div>
                     </div>
-                    <p className="text-danger mb-0 fw-bold">
-                      {error && formvalue.confirmpassword === ""
-                        ? "Confirm Password is Required"
-                        : formvalue.confirmpassword === "" &&
-                          formvalue.password === ""
-                        ? ""
-                        : formvalue.confirmpassword !== "" &&
-                          formvalue.confirmpassword !== formvalue.password
-                        ? "Password Does not match"
-                        : ""}
-                    </p>
+                  </div>
+                  <div className="mt-3">
+                    <div className="mb-3 position-relative">
+                      <div className="d-flex">
+                        <input
+                          className="w-100 input_bg color_pink"
+                          type={showConfirmHidePassword ? "text" : "password"}
+                          placeholder="Confirm Password"
+                          value={formvalue.confirmpassword}
+                          onChange={(e) =>
+                            setFormvalue({
+                              ...formvalue,
+                              confirmpassword: e.target.value,
+                            })
+                          }
+                        />
+                        <div
+                          className="position-absolute eye_position cursor"
+                          onClick={() =>
+                            setShowConfirmHidePassword(!showConfirmHidePassword)
+                          }
+                        >
+                          {showConfirmHidePassword ? <EyeIcon /> : <EyeClose />}
+                        </div>
+                      </div>
+                      <p className="text-danger mb-0 fw-bold">
+                        {error && formvalue.confirmpassword === ""
+                          ? "Confirm Password is Required"
+                          : formvalue.confirmpassword === "" &&
+                            formvalue.password === ""
+                          ? ""
+                          : formvalue.confirmpassword !== "" &&
+                            formvalue.confirmpassword !== formvalue.password
+                          ? "Password Does not match"
+                          : ""}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-center mt-4">
+                    <button
+                      className="common_btn"
+                      onClick={(e) => SubmitData(e)}
+                    >
+                      Submit
+                    </button>
                   </div>
                 </div>
-                <div className="text-center mt-4">
-                  <button className="common_btn" onClick={(e) => SubmitData(e)}>
-                    Submit
-                  </button>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
 
